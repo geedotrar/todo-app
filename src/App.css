@@ -9,14 +9,14 @@ body {
 .todo-app {
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  width: 70%;
-  min-height: 600px;
+  /* justify-content: start; */
+  width: 90%;
+  /* min-height: 600px; */
   background: white;
   text-align: center;
   margin: 128px auto;
-  border-radius: 10px;
-  padding-bottom: 32px;
+  /* border-radius: 10px; */
+  /* padding-bottom: 32px; */
 }
 
 .important-btn {
