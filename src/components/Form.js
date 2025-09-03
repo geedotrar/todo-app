@@ -92,37 +92,41 @@ export default function FormTodo() {
   };
 
   return (
-    <div>
+    <div className="app-container">
       <ToastContainer />
-      <div>
+      <div className="todo-card">
         <h1 className="header">Todo List</h1>
         <form className="todo-form">
-          <input value={inputValue} onChange={handleChange} className="todo-input" placeholder={editTaskId ? "Update Task" : "Add Task"} required />
+          <input value={inputValue} onChange={handleChange} className="todo-input" placeholder={editTaskId ? "Update Task..." : "Add New Task..."} maxLength={35}/>
           <button onClick={editTaskId ? handleUpdateTask : handleCreate} className="todo-button">
-            {editTaskId ? "Update" : "Add"}{" "}
+            {editTaskId ? "Update" : "Add"}
           </button>
         </form>
+        <div className="total-tasks">Total Tasks: {todo.length}</div>
 
-        {todo.map((result) => {
-          return (
+        <div className="todo-list">
+          {todo.map((result) => (
             <div className="todo-row" key={result.id}>
-              {result.item}
-              <div>
-                <FiEdit onClick={() => handleEditTask(result.id)} className="todo-button-update" size={30}></FiEdit>
-                <TiDeleteOutline onClick={() => handleDelete(result.id)} className="todo-button-delete" size={40}></TiDeleteOutline>
+              <span className="text-start">{result.item}</span>
+              <div className="icons">
+                <FiEdit
+                  onClick={() => handleEditTask(result.id)}
+                  className="icon edit"
+                />
+                <TiDeleteOutline onClick={() => !editTaskId && handleDelete(result.id)} className={`icon delete ${editTaskId ? "disabled" : ""}`} style={{ pointerEvents: editTaskId ? "none" : "auto", opacity: editTaskId ? 0.5 : 1 }} />
               </div>
             </div>
-          );
-        })}
+          ))}
+        </div>
 
-        {todo.length === 0 ? (
-          <></>
-        ) : (
-          <span class="hovertext" data-hover="Delete All Tasks">
-            <RiDeleteBin6Line onClick={() => handleDeleteAllTask()} className="todo-button-deleteAll" size={40} />
-          </span>
+        {todo.length > 0 && (
+          <div className="delete-all">
+            <button onClick={handleDeleteAllTask}>
+              <RiDeleteBin6Line size={20} />
+              Delete All
+            </button>
+          </div>
         )}
-        <div id="total-tasks">Total Tasks: {todo.length}</div>
       </div>
     </div>
   );
